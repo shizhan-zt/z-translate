@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "z translate",
+  "version": "1.2.2",
+  "description": "选中文本即可翻译，支持中英互译、词袋模式、TTS朗读",
+  "permissions": ["storage", "contextMenus"],
+  "host_permissions": [
+    "https://translate.googleapis.com/*",
+    "https://dict.youdao.com/*"
+  ],
+  "web_accessible_resources": [{
+    "resources": ["src/content/popup/popup.css"],
+    "matches": ["<all_urls>"]
+  }],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": [
+      "src/lib/browser-polyfill.js",
+      "src/lib/md5.js",
+      "src/lib/storage.js",
+      "src/lib/tts.js",
+      "src/content/popup/popup.js",
+      "src/content/content.js"
+    ],
+    "all_frames": false
+  }],
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": false
+  },
+  "commands": {
+    "translate-selection": {
+      "suggested_key": { "default": "Alt+T" },
+      "description": "翻译选中文本"
+    },
+    "wordbag-toggle": {
+      "suggested_key": { "default": "Alt+J" },
+      "description": "词袋加入/移出"
+    },
+    "wordbag-clear": {
+      "suggested_key": { "default": "Alt+Shift+J" },
+      "description": "清空词袋"
+    },
+    "fast-translate": {
+      "suggested_key": { "default": "Alt+Shift+T" },
+      "description": "快速翻译（跳过语言检测）"
+    }
+  },
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "48": "src/icons/icon48.png",
+    "128": "src/icons/icon128.png"
+  }
+}

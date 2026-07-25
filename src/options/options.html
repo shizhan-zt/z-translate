@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>z translate - 设置</title>
+<link rel="stylesheet" href="options.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>z translate 设置</h1>
+
+  <section>
+    <h2>翻译后端</h2>
+    <div class="row">
+      <label>后端优先级（拖拽调整）</label>
+      <ul id="backend-order" class="sort-list">
+        <li draggable="true" data-id="mymemory">MyMemory 翻译（免费免Key）</li>
+        <li draggable="true" data-id="google">Google 翻译（需VPN/改hosts）</li>
+        <li draggable="true" data-id="youdao">有道翻译（API 待修复）</li>
+      </ul>
+      <p class="hint">排在上面的优先使用，失败自动降级。<strong>MyMemory 免费无需 Key，国内直连可用。</strong>Google 需科学上网或改 hosts。有道 API 待修复。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>触发方式</h2>
+    <div class="row">
+      <label for="triggerMode">翻译触发</label>
+      <select id="triggerMode">
+        <option value="auto">自动弹窗（选中后延迟触发）</option>
+        <option value="keyboard-only" selected>仅快捷键（Alt+T）</option>
+        <option value="context-only">仅右键菜单</option>
+      </select>
+    </div>
+    <div class="row" id="delayRow">
+      <label for="popupDelay">弹窗延迟</label>
+      <select id="popupDelay">
+        <option value="0">即时</option>
+        <option value="200">200ms</option>
+        <option value="300">300ms（默认）</option>
+        <option value="500">500ms</option>
+      </select>
+    </div>
+  </section>
+
+  <section>
+    <h2>快速模式</h2>
+    <div class="row">
+      <label for="fastDirection">快速翻译方向（Alt+Shift+T）</label>
+      <select id="fastDirection">
+        <option value="auto">自动检测</option>
+        <option value="en2zh">始终英 → 中</option>
+        <option value="zh2en">始终中 → 英</option>
+      </select>
+      <p class="hint">快速模式跳过语言检测，速度更快。建议在浏览固定语言网页时使用。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>翻译选项</h2>
+    <div class="row">
+      <label for="maxTextLength">最大文本长度</label>
+      <input type="number" id="maxTextLength" min="100" max="10000" step="100" value="5000">
+      <span class="unit">字符</span>
+      <p class="hint">超过此长度会自动在断句处分段翻译。</p>
+    </div>
+    <div class="row">
+      <label>
+        <input type="checkbox" id="cacheEnabled" checked>
+        启用翻译缓存
+      </label>
+      <p class="hint">相同内容再次翻译时直接返回缓存结果。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>术语表</h2>
+    <p class="hint">自定义专有名词翻译，防止翻偏。一行一条，格式：原文 = 译文</p>
+    <div class="row">
+      <textarea id="glossaryText" rows="6" placeholder="transformer = 变压器&#10;attention mechanism = 注意力机制&#10;李强 = Li Qiang"></textarea>
+    </div>
+    <button id="saveGlossary" class="btn-primary">保存术语表</button>
+  </section>
+
+  <section>
+    <h2>快捷键</h2>
+    <table class="shortcuts">
+      <tr><td>翻译选中文本</td><td><kbd>Alt+T</kbd></td></tr>
+      <tr><td>词袋加入/移出</td><td><kbd>Alt+J</kbd></td></tr>
+      <tr><td>清空词袋</td><td><kbd>Alt+Shift+J</kbd></td></tr>
+      <tr><td>快速翻译</td><td><kbd>Alt+Shift+T</kbd></td></tr>
+    </table>
+    <p class="hint">
+      如需修改，请在地址栏输入 <code>chrome://extensions/shortcuts</code> 自行配置。
+    </p>
+  </section>
+
+  <div class="actions-bottom">
+    <button id="saveAll" class="btn-primary">保存所有设置</button>
+    <span id="savedMsg" class="saved-msg"></span>
+  </div>
+</div>
+<script src="options.js"></script>
+</body>
+</html>
